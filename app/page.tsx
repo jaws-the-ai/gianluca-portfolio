@@ -72,28 +72,14 @@ export default function Home() {
             <div className="grid md:grid-cols-3 gap-12 items-start">
               {/* Photo */}
               <FadeIn className="md:col-span-1">
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-200 flex items-center justify-center">
-                  {/* To add your photo: place photo.jpg in the /public folder and replace this block with:
-                      <Image src="/photo.jpg" alt="Gianluca DeRossi" fill className="object-cover" /> */}
-                  <div className="text-center text-slate-400 px-6">
-                    <svg
-                      className="mx-auto mb-3 opacity-40"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                    <p className="text-xs leading-relaxed opacity-60">
-                      Add photo.jpg
-                      <br />
-                      to /public
-                    </p>
-                  </div>
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-200">
+                  <Image
+                    src="/Gianluca Profile Photo.JPEG"
+                    alt="Gianluca DeRossi"
+                    fill
+                    className="object-cover object-top"
+                    priority
+                  />
                 </div>
               </FadeIn>
 
