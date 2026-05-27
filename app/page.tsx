@@ -150,7 +150,7 @@ export default function Home() {
                 <FadeIn key={cs.id} delay={i * 100}>
                   <div className="grid md:grid-cols-3 gap-10">
                     <div>
-                      <p className="text-4xl font-semibold text-amber-100 mb-4 select-none">
+                      <p className="text-4xl font-semibold text-stone-300 mb-4 select-none">
                         0{i + 1}
                       </p>
                       <p className="text-xs uppercase tracking-widest text-stone-400 mb-1">
