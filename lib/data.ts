@@ -45,7 +45,7 @@ export const caseStudies = [
     metrics: [
       { value: "80", label: "Clients managed" },
       { value: "$150–300", label: "Per client / month" },
-      { value: "0", label: "Manual reports" },
+      { value: "100%", label: "Reporting automated" },
     ],
   },
 ];
