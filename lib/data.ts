@@ -4,7 +4,7 @@ export const personalInfo = {
   tagline:
     "Building B2B SaaS products and ad programs that grow revenue, reduce churn, and give teams clarity on what's working.",
   email: "your@email.com",
-  linkedin: "https://linkedin.com/in/yourprofile",
+  linkedin: "https://www.linkedin.com/in/gianluca-derossi/",
   resumeUrl: "/resume.pdf",
   location: "New York / New Jersey Metro Area",
 };
