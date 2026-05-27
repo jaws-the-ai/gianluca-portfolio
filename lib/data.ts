@@ -23,7 +23,11 @@ export const caseStudies = [
       "Led end-to-end product ownership of the platform built on a Cloud Campaign partnership. Redesigned the onboarding flow based on drop-off data and client feedback. Coordinated API integrations with the CTO and backend engineering. Sourced and onboarded international staffing vendor GetMagic after a structured competitive evaluation.",
     outcome:
       "Monthly churn dropped from 9% to 6%, a 33% relative improvement. Vendor sourcing reduced operational costs while maintaining service quality. The onboarding redesign became the foundation for future retention initiatives.",
-    metrics: ["9% to 6% churn", "33% improvement", "Vendor cost reduction"],
+    metrics: [
+      { value: "9% → 6%", label: "Monthly churn" },
+      { value: "33%", label: "Churn reduction" },
+      { value: "1", label: "Vendor sourced & onboarded" },
+    ],
   },
   {
     id: "google-ads-reporting",
@@ -38,7 +42,11 @@ export const caseStudies = [
       "Built a scalable automated reporting system in Google Sheets: a private master metrics sheet fed individual client-facing sheets automatically. Each client received visibility into their own performance without exposing aggregate data. Operated a centralized Google Ads manager account while maintaining individual client spend accountability.",
     outcome:
       "Eliminated manual reporting overhead across 80 clients. Each client received automated, accurate performance data, improving transparency and reducing churn driven by confusion about ad ROI.",
-    metrics: ["80 clients managed", "$150–$300/mo per client", "Fully automated reporting"],
+    metrics: [
+      { value: "80", label: "Clients managed" },
+      { value: "$150–300", label: "Per client / month" },
+      { value: "0", label: "Manual reports" },
+    ],
   },
 ];
 
