@@ -77,6 +77,7 @@ export default function Home() {
                     src="/Gianluca Profile Photo.JPEG"
                     alt="Gianluca DeRossi"
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover object-top"
                     priority
                   />
