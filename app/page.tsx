@@ -105,8 +105,9 @@ export default function Home() {
                       {[
                         "Ads & Monetization",
                         "Growth & Retention",
-                        "Data Products",
+                        "AI Products",
                         "B2B SaaS",
+                        "Founder",
                       ].map((tag) => (
                         <span
                           key={tag}
@@ -241,7 +242,7 @@ export default function Home() {
                 What I bring
               </h2>
             </FadeIn>
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {skills.map((group, i) => (
                 <FadeIn key={group.category} delay={i * 80}>
                   <div className="bg-white rounded-2xl p-6 border border-stone-200 h-full">

@@ -48,6 +48,25 @@ export const caseStudies = [
       { value: "100%", label: "Reporting automated" },
     ],
   },
+  {
+    id: "ellucca",
+    company: "Ellucca",
+    role: "Founder",
+    period: "2025",
+    tags: ["AI Product", "Consumer", "Founder"],
+    headline: "Founded and launched an AI-powered film recommendation platform from 0 to live",
+    problem:
+      "Most film recommendation tools surface popular titles rather than genuinely personalized picks. There was no product that combined taste-based AI recommendations with social features that let friends discover films together.",
+    approach:
+      "Founded Ellucca and built the entire platform solo using Claude Code and the Claude API. Designed and shipped personalized AI recommendations with reasoning explanations, a recommendation strength scoring system based on user rating history, Tonight's Vibe mood filters, a Friends system with taste match percentages, group watching recommendations, and a Watch Later list. Acquired the ellucca.com domain and filed for trademark.",
+    outcome:
+      "A fully functional, live consumer product at ellucca.com — built entirely solo from concept to launch. Demonstrates end-to-end product ownership, hands-on AI development capability, and the ability to ship independently without a team or external resources.",
+    metrics: [
+      { value: "0 → 1", label: "Built from scratch" },
+      { value: "Solo", label: "Entire product built independently" },
+      { value: "Live", label: "Deployed at ellucca.com" },
+    ],
+  },
 ];
 
 export const skills = [
@@ -91,6 +110,16 @@ export const skills = [
       "Vendor Evaluation",
       "Cloud Campaign",
       "Cross-functional Leadership",
+    ],
+  },
+  {
+    category: "AI & Development",
+    items: [
+      "Claude Code",
+      "Claude API",
+      "LLM Prototyping",
+      "Prompt Engineering",
+      "AI Product Design",
     ],
   },
 ];
