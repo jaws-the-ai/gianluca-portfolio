@@ -50,6 +50,8 @@ export const caseStudies = [
   },
   {
     id: "ellucca",
+    anchorId: "case-ellucca",
+    visitUrl: "https://www.ellucca.com",
     company: "Ellucca",
     role: "Founder",
     period: "2025",
@@ -66,6 +68,92 @@ export const caseStudies = [
       { value: "Solo", label: "Entire product built independently" },
       { value: "Live", label: "Deployed at ellucca.com" },
     ],
+  },
+];
+
+export const aiProjects = [
+  {
+    id: "leukocyte-realms",
+    title: "Leukocyte Realms",
+    subtitle: "An immune system bullet hell dungeon crawler, playable in the browser",
+    tags: ["Game Design", "Browser Game", "Built with Claude"],
+    stats: [
+      { value: "9", label: "unique bosses" },
+      { value: "40+", label: "collectible items" },
+      { value: "Live", label: "on itch.io" },
+    ],
+    description:
+      "You play a white blood cell fighting through a patient's body. Dodge dense bullet patterns, collect items that stack into ridiculous builds, and break nine guardian bosses. Inspired by The Binding of Isaac and Realm of the Mad God.",
+    role: [
+      "Defined the core loop and cut features that diluted it (removed the dodge roll so dodging bullets stays the core skill)",
+      "Ran my own new player playtests with separate save slots, then retuned early difficulty and pacing from what I saw",
+      "Added in-game telemetry and a feedback box to see where first sessions dropped off",
+      "Shipped the public release on itch.io, including the store page, art and screenshots",
+    ],
+    primaryButton: { label: "Play free", url: "https://grownupgamer.itch.io/leukocyte-realms" },
+    secondaryButton: null as null | { label: string; url: string },
+    cover: {
+      src: "/projects/leukocyte/cover.jpg",
+      alt: "Leukocyte Realms title art: a white blood cell surrounded by a spiral of enemy bullets",
+    },
+    screenshots: [
+      { src: "/projects/leukocyte/boss.jpg", alt: "A guardian boss firing rings of bullets at the player" },
+      { src: "/projects/leukocyte/loot.jpg", alt: "Item pickup screen showing a rare upgrade" },
+      { src: "/projects/leukocyte/evolution.jpg", alt: "A weapon evolution unlocking mid run" },
+      { src: "/projects/leukocyte/shop.jpg", alt: "The between-run shop where players spend earned currency" },
+    ],
+  },
+  {
+    id: "tile-rush",
+    title: "Tile Rush",
+    subtitle: "A live three-player word race with skill ratings",
+    tags: ["Multiplayer", "Real-time", "Supabase + Vercel"],
+    stats: [
+      { value: "3", label: "players per match" },
+      { value: "Elo", label: "skill ratings" },
+      { value: "Live", label: "real-time play" },
+    ],
+    description:
+      "A modern remake of Phrase Frenzy, the old GSN online word game. Three players race to solve category boards of hidden tiles, scoring for every word they find, while revealing a tile costs points. Ratings, a leaderboard and lifetime points keep people coming back.",
+    role: [
+      "Rebuilt a game I loved from memory into a spec: rules, scoring, round structure and the cost of revealing tiles",
+      "Chose a chess-style Elo rating plus lifetime points, so players get both a skill rank and a reward for showing up",
+      "Picked the stack (Supabase for real-time lobbies and data, Vercel for hosting) and shipped it as a real web app",
+      "Playtested live matches with friends and family and iterated on the game feel",
+    ],
+    primaryButton: { label: "Play", url: "https://tile-rush.vercel.app" },
+    secondaryButton: null as null | { label: string; url: string },
+    cover: {
+      src: "/projects/tilerush/cover.jpg",
+      alt: "A Tile Rush game board with category tiles and three players' scores",
+    },
+    screenshots: [],
+  },
+  {
+    id: "ellucca-project",
+    title: "Ellucca",
+    subtitle: "AI taste-matching for film people",
+    tags: ["AI Product", "Consumer", "Claude API"],
+    stats: [
+      { value: "0 to 1", label: "solo founder" },
+      { value: "Beta", label: "live and free" },
+      { value: "Claude API", label: "powers the picks" },
+    ],
+    description:
+      "A film recommendation app that learns your taste from a few ratings, then picks films you will actually like, filtered to the streaming services you pay for. Pick a mood, or merge tastes with a friend in group mode to find something you will both enjoy.",
+    role: [
+      "Founded it solo and owned everything from positioning to launch",
+      "Designed the taste profile, mood picker and group mode around one problem: too much scrolling, not enough watching",
+      "Built it with Claude Code and used the Claude API for recommendations with visible reasoning",
+      "Planning the early-user launch sequence: BetaList, then AI directories, then Product Hunt",
+    ],
+    primaryButton: { label: "Try it", url: "https://www.ellucca.com" },
+    secondaryButton: { label: "Read the case study", url: "#case-ellucca" } as null | { label: string; url: string },
+    cover: {
+      src: "/projects/ellucca/cover.jpg",
+      alt: "Ellucca's personalized film picks with match scores",
+    },
+    screenshots: [],
   },
 ];
 

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gianluca DeRossi — Product Manager",
   description:
-    "PM specializing in B2B SaaS, Ads & Monetization, and Growth products. Based in NYC/NJ.",
+    "Product manager who ships AI-built products. Specializing in B2B SaaS, Ads & Monetization, and Growth. Based in NYC/NJ.",
 };
 
 export default function RootLayout({

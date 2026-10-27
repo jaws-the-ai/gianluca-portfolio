@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Nav from "./components/Nav";
 import FadeIn from "./components/FadeIn";
-import { caseStudies, skills } from "@/lib/data";
+import ProjectCard from "./components/ProjectCard";
+import { caseStudies, skills, aiProjects } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -148,7 +149,8 @@ export default function Home() {
             </FadeIn>
             <div className="flex flex-col gap-24">
               {caseStudies.map((cs, i) => (
-                <FadeIn key={cs.id} delay={i * 100}>
+                <div key={cs.id} id={"anchorId" in cs ? (cs as {anchorId?: string}).anchorId : undefined}>
+                  <FadeIn delay={i * 100}>
                   <div className="grid md:grid-cols-3 gap-10">
                     <div>
                       <p className="text-4xl font-semibold text-stone-300 mb-4 select-none">
@@ -220,11 +222,48 @@ export default function Home() {
                           </p>
                         </div>
                       </div>
+                      {"visitUrl" in cs && cs.visitUrl && (
+                        <div className="mt-6">
+                          <a
+                            href={(cs as {visitUrl: string}).visitUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border border-stone-300 text-stone-700 px-5 py-2 rounded-full text-sm font-medium hover:border-stone-500 transition-colors inline-block"
+                          >
+                            Visit Ellucca
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {i < caseStudies.length - 1 && (
                     <div className="mt-24 border-t border-stone-100" />
                   )}
+                  </FadeIn>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Built with AI */}
+        <section id="built" className="py-24 bg-stone-100">
+          <div className="max-w-5xl mx-auto px-6">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-widest text-stone-400 mb-2">
+                Side Projects
+              </p>
+              <h2 className="text-3xl font-semibold text-stone-900 mb-4 tracking-tight">
+                Built with AI
+              </h2>
+              <p className="text-stone-500 mb-16 max-w-xl leading-relaxed">
+                Products I scoped, designed and shipped solo by directing AI coding tools. I own the product decisions; AI writes most of the code.
+              </p>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {aiProjects.map((project, i) => (
+                <FadeIn key={project.id} delay={i * 100}>
+                  <ProjectCard project={project} />
                 </FadeIn>
               ))}
             </div>
@@ -232,7 +271,7 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="py-24 bg-stone-100">
+        <section id="skills" className="py-24">
           <div className="max-w-5xl mx-auto px-6">
             <FadeIn>
               <p className="text-xs uppercase tracking-widest text-stone-400 mb-2">

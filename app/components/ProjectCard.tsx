@@ -1,0 +1,221 @@
+"use client";
+
+import Image from "next/image";
+import { useState, useEffect, useCallback } from "react";
+
+type Stat = { value: string; label: string };
+type Img = { src: string; alt: string };
+type Btn = { label: string; url: string };
+
+export type AiProject = {
+  id: string;
+  title: string;
+  subtitle: string;
+  tags: string[];
+  stats: Stat[];
+  description: string;
+  role: string[];
+  primaryButton: Btn;
+  secondaryButton?: Btn | null;
+  cover: Img;
+  screenshots?: Img[];
+};
+
+export default function ProjectCard({ project }: { project: AiProject }) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const screenshots = project.screenshots ?? [];
+
+  const close = useCallback(() => setLightboxIndex(null), []);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightboxIndex, close]);
+
+  return (
+    <>
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col">
+        {/* Cover image */}
+        <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
+          <Image
+            src={project.cover.src}
+            alt={project.cover.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="p-6 flex flex-col gap-5 flex-1">
+          {/* Title + subtitle */}
+          <div>
+            <h3 className="text-lg font-semibold text-stone-900 leading-snug">
+              {project.title}
+            </h3>
+            <p className="text-sm text-stone-500 mt-1">{project.subtitle}</p>
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1">
+            {project.tags.map((t) => (
+              <span
+                key={t}
+                className="bg-stone-100 text-stone-500 text-xs px-2 py-0.5 rounded"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div className="flex gap-5 flex-wrap">
+            {project.stats.map((s) => (
+              <div key={s.label} className="border-l-2 border-amber-600 pl-3">
+                <p className="text-lg font-semibold text-stone-900 leading-none">
+                  {s.value}
+                </p>
+                <p className="text-xs text-stone-400 mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Description */}
+          <p className="text-sm text-stone-500 leading-relaxed">
+            {project.description}
+          </p>
+
+          {/* My role */}
+          <div>
+            <p className="text-xs uppercase tracking-widest text-stone-400 mb-3">
+              My role
+            </p>
+            <ul className="flex flex-col gap-2">
+              {project.role.map((r, i) => (
+                <li key={i} className="text-sm text-stone-500 flex gap-2 items-start">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Screenshot strip */}
+          {screenshots.length > 0 && (
+            <div className="flex gap-2">
+              {screenshots.map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightboxIndex(i)}
+                  className="relative flex-1 rounded-lg overflow-hidden border border-stone-100 hover:border-amber-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                  style={{ aspectRatio: "16 / 10" }}
+                  aria-label={`View screenshot: ${s.alt}`}
+                >
+                  <Image
+                    src={s.src}
+                    alt={s.alt}
+                    fill
+                    sizes="15vw"
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-3 mt-auto pt-2">
+            <a
+              href={project.primaryButton.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-stone-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-stone-700 transition-colors"
+            >
+              {project.primaryButton.label}
+            </a>
+            {project.secondaryButton && (
+              <a
+                href={project.secondaryButton.url}
+                {...(project.secondaryButton.url.startsWith("#")
+                  ? {}
+                  : { target: "_blank", rel: "noopener noreferrer" })}
+                className="border border-stone-300 text-stone-700 px-5 py-2 rounded-full text-sm font-medium hover:border-stone-500 transition-colors"
+              >
+                {project.secondaryButton.label}
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          onClick={close}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Screenshot: ${screenshots[lightboxIndex].alt}`}
+        >
+          <div
+            className="relative max-w-4xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={close}
+              className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm flex items-center gap-1.5"
+              aria-label="Close lightbox"
+            >
+              Close
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path d="M2 2l10 10M2 12L12 2" />
+              </svg>
+            </button>
+            <div
+              className="relative w-full rounded-xl overflow-hidden bg-black"
+              style={{ aspectRatio: "16 / 10" }}
+            >
+              <Image
+                src={screenshots[lightboxIndex].src}
+                alt={screenshots[lightboxIndex].alt}
+                fill
+                sizes="90vw"
+                className="object-contain"
+              />
+            </div>
+            {screenshots.length > 1 && (
+              <div className="flex gap-2 mt-4 justify-center">
+                {screenshots.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightboxIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      i === lightboxIndex
+                        ? "bg-white"
+                        : "bg-white/40 hover:bg-white/70"
+                    }`}
+                    aria-label={`View screenshot ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
