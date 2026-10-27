@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 type Stat = { value: string; label: string };
 type Img = { src: string; alt: string };
@@ -169,8 +170,8 @@ export default function ProjectCard({ project }: { project: AiProject }) {
         </div>
       </div>
 
-      {/* Lightbox — full viewport */}
-      {lightboxIndex !== null && (
+      {/* Lightbox — portaled to body so FadeIn's CSS transform doesn't clip it */}
+      {lightboxIndex !== null && typeof document !== "undefined" && createPortal(
         <div
           className="fixed inset-0 z-50 bg-black flex flex-col"
           role="dialog"
@@ -218,7 +219,8 @@ export default function ProjectCard({ project }: { project: AiProject }) {
               ))}
             </div>
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
