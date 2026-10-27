@@ -169,22 +169,19 @@ export default function ProjectCard({ project }: { project: AiProject }) {
         </div>
       </div>
 
-      {/* Lightbox — lightboxImages[0] is cover, rest are screenshots */}
+      {/* Lightbox — full viewport */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
-          onClick={close}
+          className="fixed inset-0 z-50 bg-black flex flex-col"
           role="dialog"
           aria-modal="true"
           aria-label={`Image: ${lightboxImages[lightboxIndex].alt}`}
         >
-          <div
-            className="relative max-w-4xl w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
+          {/* Top bar */}
+          <div className="flex justify-end p-4 shrink-0">
             <button
               onClick={close}
-              className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm flex items-center gap-1.5"
+              className="text-white/60 hover:text-white flex items-center gap-2 text-sm transition-colors"
               aria-label="Close lightbox"
             >
               Close
@@ -192,35 +189,35 @@ export default function ProjectCard({ project }: { project: AiProject }) {
                 <path d="M2 2l10 10M2 12L12 2" />
               </svg>
             </button>
-            <div
-              className="relative w-full rounded-xl overflow-hidden bg-black"
-              style={{ aspectRatio: "16 / 10" }}
-            >
-              <Image
-                src={lightboxImages[lightboxIndex].src}
-                alt={lightboxImages[lightboxIndex].alt}
-                fill
-                sizes="90vw"
-                className="object-contain"
-              />
-            </div>
-            {lightboxImages.length > 1 && (
-              <div className="flex gap-2 mt-4 justify-center">
-                {lightboxImages.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setLightboxIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      i === lightboxIndex
-                        ? "bg-white"
-                        : "bg-white/40 hover:bg-white/70"
-                    }`}
-                    aria-label={`View image ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )}
           </div>
+
+          {/* Image — fills remaining height, click backdrop to close */}
+          <div className="relative flex-1 cursor-zoom-out" onClick={close}>
+            <Image
+              src={lightboxImages[lightboxIndex].src}
+              alt={lightboxImages[lightboxIndex].alt}
+              fill
+              sizes="100vw"
+              className="object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+
+          {/* Dots */}
+          {lightboxImages.length > 1 && (
+            <div className="flex gap-3 py-5 justify-center shrink-0">
+              {lightboxImages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightboxIndex(i)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    i === lightboxIndex ? "bg-white" : "bg-white/30 hover:bg-white/60"
+                  }`}
+                  aria-label={`View image ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </>
