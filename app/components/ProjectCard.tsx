@@ -24,6 +24,8 @@ export type AiProject = {
 export default function ProjectCard({ project }: { project: AiProject }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const screenshots = project.screenshots ?? [];
+  // Cover is always index 0 in the lightbox; screenshots follow
+  const lightboxImages = [project.cover, ...screenshots];
 
   const close = useCallback(() => setLightboxIndex(null), []);
 
@@ -43,16 +45,28 @@ export default function ProjectCard({ project }: { project: AiProject }) {
   return (
     <>
       <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden flex flex-col">
-        {/* Cover image */}
-        <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
+        {/* Cover image — click to open lightbox */}
+        <button
+          onClick={() => setLightboxIndex(0)}
+          className="relative w-full block focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 group"
+          style={{ aspectRatio: "16 / 10" }}
+          aria-label={`View full image: ${project.cover.alt}`}
+        >
           <Image
             src={project.cover.src}
             alt={project.cover.alt}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
+            className="object-cover transition-opacity group-hover:opacity-90"
           />
-        </div>
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="bg-black/50 rounded-full p-2.5">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="white" strokeWidth="1.5">
+                <path d="M3 3h5M3 3v5M17 3h-5M17 3v5M3 17h5M3 17v-5M17 17h-5M17 17v-5" />
+              </svg>
+            </div>
+          </div>
+        </button>
 
         <div className="p-6 flex flex-col gap-5 flex-1">
           {/* Title + subtitle */}
@@ -107,13 +121,13 @@ export default function ProjectCard({ project }: { project: AiProject }) {
             </ul>
           </div>
 
-          {/* Screenshot strip */}
+          {/* Screenshot strip — indices offset by 1 since cover is lightboxImages[0] */}
           {screenshots.length > 0 && (
             <div className="flex gap-2">
               {screenshots.map((s, i) => (
                 <button
                   key={i}
-                  onClick={() => setLightboxIndex(i)}
+                  onClick={() => setLightboxIndex(i + 1)}
                   className="relative flex-1 rounded-lg overflow-hidden border border-stone-100 hover:border-amber-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
                   style={{ aspectRatio: "16 / 10" }}
                   aria-label={`View screenshot: ${s.alt}`}
@@ -155,14 +169,14 @@ export default function ProjectCard({ project }: { project: AiProject }) {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox — lightboxImages[0] is cover, rest are screenshots */}
       {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
           onClick={close}
           role="dialog"
           aria-modal="true"
-          aria-label={`Screenshot: ${screenshots[lightboxIndex].alt}`}
+          aria-label={`Image: ${lightboxImages[lightboxIndex].alt}`}
         >
           <div
             className="relative max-w-4xl w-full"
@@ -174,14 +188,7 @@ export default function ProjectCard({ project }: { project: AiProject }) {
               aria-label="Close lightbox"
             >
               Close
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M2 2l10 10M2 12L12 2" />
               </svg>
             </button>
@@ -190,16 +197,16 @@ export default function ProjectCard({ project }: { project: AiProject }) {
               style={{ aspectRatio: "16 / 10" }}
             >
               <Image
-                src={screenshots[lightboxIndex].src}
-                alt={screenshots[lightboxIndex].alt}
+                src={lightboxImages[lightboxIndex].src}
+                alt={lightboxImages[lightboxIndex].alt}
                 fill
                 sizes="90vw"
                 className="object-contain"
               />
             </div>
-            {screenshots.length > 1 && (
+            {lightboxImages.length > 1 && (
               <div className="flex gap-2 mt-4 justify-center">
-                {screenshots.map((_, i) => (
+                {lightboxImages.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setLightboxIndex(i)}
@@ -208,7 +215,7 @@ export default function ProjectCard({ project }: { project: AiProject }) {
                         ? "bg-white"
                         : "bg-white/40 hover:bg-white/70"
                     }`}
-                    aria-label={`View screenshot ${i + 1}`}
+                    aria-label={`View image ${i + 1}`}
                   />
                 ))}
               </div>
