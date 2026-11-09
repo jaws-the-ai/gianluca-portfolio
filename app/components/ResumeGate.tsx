@@ -10,6 +10,7 @@ export default function ResumeGate() {
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -23,7 +24,7 @@ export default function ResumeGate() {
     e.preventDefault();
     if (value === RESUME_PASSWORD) {
       setOpen(false);
-      window.open("/resume.pdf", "_blank", "noopener,noreferrer");
+      linkRef.current?.click();
     } else {
       setError(true);
       setShake(true);
@@ -34,6 +35,15 @@ export default function ResumeGate() {
 
   return (
     <>
+      {/* Hidden anchor — clicked programmatically to avoid popup blockers */}
+      <a
+        ref={linkRef}
+        href="/resume.pdf"
+        download="Gianluca_DeRossi_Resume.pdf"
+        className="hidden"
+        aria-hidden="true"
+      />
+
       <button
         onClick={() => setOpen(true)}
         className="border border-stone-300 text-stone-700 px-8 py-3 rounded-full text-sm font-medium hover:border-stone-500 transition-colors"
