@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const RESUME_PASSWORD = "gianluca2026";
 
@@ -51,7 +52,7 @@ export default function ResumeGate() {
         Download resume
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <div
           className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
           onClick={() => setOpen(false)}
@@ -104,7 +105,8 @@ export default function ResumeGate() {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
