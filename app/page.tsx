@@ -2,6 +2,7 @@ import Image from "next/image";
 import Nav from "./components/Nav";
 import FadeIn from "./components/FadeIn";
 import ProjectCard from "./components/ProjectCard";
+import ResumeGate from "./components/ResumeGate";
 import { caseStudies, skills, aiProjects } from "@/lib/data";
 
 export default function Home() {
@@ -335,12 +336,7 @@ export default function Home() {
                 >
                   LinkedIn
                 </a>
-                <a
-                  href="/resume.pdf"
-                  className="border border-stone-300 text-stone-700 px-8 py-3 rounded-full text-sm font-medium hover:border-stone-500 transition-colors"
-                >
-                  Download resume
-                </a>
+                <ResumeGate />
               </div>
             </div>
           </FadeIn>
